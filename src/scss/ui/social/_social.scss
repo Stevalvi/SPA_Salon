@@ -1,0 +1,48 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.sociales {
+    margin: 5rem 0;
+    display: flex; // Ya que abajo en __accesible colocamos ese display block y los puso de arriba hacia abajo, acá colocamos el display flex para que los ponga de izquierda a derecha.
+    @include m.tablet { 
+        margin: 0;
+    }
+
+    &__enlace {
+
+        &::before {
+            content: '';
+            padding: 2rem; // Ya que el before no tiene altura ni ancho por default, con el padding le damos esos 2rem y nos crea un cuadrado perfecto
+            display: inline-block; // Ya que con el padding de 2rem no es suficiente para que el before forme un cuadro perfecto, con ese display inline block si logramos que nos dé un cuadrado perfecto y de esta forma podemos posicionar esos logos de las redes sociales.
+        }
+        &[href*="facebook.com"]::before {
+            background-image: url(../img/icono_facebook.svg); // Con esto buscará que en ese href aparezca facebook.com y ejecutará ese código del before, se utiliza *= ya que eso significa que en cualquier parte de ese href puede estar ese facebbok.com, por ejemplo existen dos más como $= que quiere decir que debe terminar con ese facebook.com, y el tercero que también se usa es ^= que quiere decir que debe iniciar con ese facebook.com 
+        }
+        &[href*="twitter.com"]::before {
+            background-image: url(../img/icono_twitter.svg);
+        }
+        &[href*="instagram.com"]::before {
+            background-image: url(../img/icono_instagram.svg);
+        }
+        &[href*="pinterest.com"]::before {
+            background-image: url(../img/icono_pinterest.svg);
+        }
+        &[href*="youtube.com"]::before {
+            background-image: url(../img/icono_youtube.svg);
+        }
+        &[href*="tiktok.com"]::before {
+            background-image: url(../img/icono_tiktok.svg);
+        }
+    }
+
+    &__accesible { // Ocultamos ese texto del span de los enlaces, ya que solo requerimos los iconos de las redes sociales en nuestro proyecto. La razón por la que ocultamos ese texto y no lo eliminamos, es porque loss dejamos como ayuda para esas personas con discapacidades como gente ciega, o que usan dispositivos de autoayuda ya que no ven bien.
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        border: 0;
+        display: block;
+    }
+}
